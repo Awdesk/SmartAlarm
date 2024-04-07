@@ -14,5 +14,10 @@ namespace Smart_Alarm
         {
             InitializeComponent();
         }
+
+        private async void OnMainPageButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new StartPage());
+        }
     }
 }
