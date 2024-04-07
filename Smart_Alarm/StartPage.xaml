@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Smart_Alarm.StartPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout HorizontalOptions="Center">
+            <Entry x:Name="groupId" Placeholder="Ваша группа" />
+            <Label Text=" Укажите время(в минутах) за которое вы добираетесь до различных корпусов:"/>
+            <Entry x:Name="timeGK" Placeholder="Главный корпус" />
+            <Entry x:Name="timeULK" Placeholder="УЛК" />
+            <Entry x:Name="timeFAT_RK" Placeholder="ФЭТ/РК"/>
+            <Button Text="Подтвердить" Margin="0,0,0,20" Clicked="ButtonCommit_Click"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

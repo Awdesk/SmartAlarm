@@ -9,7 +9,6 @@ namespace Smart_Alarm
         public App()
         {
             InitializeComponent();
-
             MainPage = new NavigationPage(new StartPage());
         }
 

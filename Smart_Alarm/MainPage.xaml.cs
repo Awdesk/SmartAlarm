@@ -17,7 +17,7 @@ namespace Smart_Alarm
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new StartPage());
+            await DisplayAlert("Спасибо", "Ваша заявка принята", "OK");
         }
     }
 }
