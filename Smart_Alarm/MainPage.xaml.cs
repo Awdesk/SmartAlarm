@@ -14,6 +14,11 @@ namespace Smart_Alarm
         {
             InitializeComponent();
         }
+        protected override bool OnBackButtonPressed()
+        {
+            // Возвращаем true, чтобы предотвратить переход на предыдущую страницу
+            return true;
+        }
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
