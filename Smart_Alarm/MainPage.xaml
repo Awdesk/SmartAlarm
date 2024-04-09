@@ -4,7 +4,7 @@
              x:Class="Smart_Alarm.MainPage">
 
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-        <Button Text="Перейти на основную страницу" Clicked="OnMainPageButtonClicked"/>
+        <Button Text="Парсер" Clicked="OnMainPageButtonClicked"/>
     </StackLayout>
 
 </ContentPage>

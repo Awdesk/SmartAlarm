@@ -32,7 +32,10 @@ namespace Smart_Alarm
                 && uint.TryParse(timeFAT_RK.Text, out timeFAT_RK_Value) && uint.TryParse(groupID.Text, out groupID_Value))
             {
                 // Сохраняем значения в память телефона
-                Preferences.Set("timeGK", timeGK_Value);
+                //Application.Current.Properties["timeGK"] = timeGK_Value;
+                //Application.Current.Properties["timeULK"] = timeULK_Value;
+                //Application.Current.Properties["groupID"] = groupID_Value;
+                //Application.Current.Properties["faculties"] = selectedPickerItem;
                 Preferences.Set("timeULK", timeULK_Value);
                 Preferences.Set("timeFAT_RK", timeFAT_RK_Value);
                 Preferences.Set("groupID", groupID_Value);

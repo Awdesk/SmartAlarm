@@ -11,9 +11,10 @@ namespace Smart_Alarm
         {
             InitializeComponent();
             // Проверка на наличие сохраненных данных
-            if(Preferences.Get("groupID", "") == "")
-            MainPage = new NavigationPage(new StartPage());
-            // Багулина! Исправить. Если данные сохранены, то приложение не запускается
+            if (Preferences.ContainsKey("groupID") && Preferences.ContainsKey("faculties"))
+            {
+                MainPage = new NavigationPage(new MainPage());
+            }
             else MainPage = new MainPage();
         }
 

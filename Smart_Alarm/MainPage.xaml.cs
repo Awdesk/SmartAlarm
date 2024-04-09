@@ -4,12 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
-
+using HtmlAgilityPack;
+using System.Diagnostics;
 namespace Smart_Alarm
 {
     public partial class MainPage : ContentPage
     {
+        Parser parser = new Parser(Preferences.Get("faculties", "fb"), Preferences.Get("groupID", "723-2"));
         public MainPage()
         {
             InitializeComponent();
@@ -22,7 +25,7 @@ namespace Smart_Alarm
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Спасибо", "Ваша заявка принята", "OK");
+            Debug.WriteLine(parser.ParseTimetable());
         }
     }
 }
