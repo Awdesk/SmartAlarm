@@ -23,7 +23,7 @@ namespace Smart_Alarm
 
         public Parser(string groupID_Value, string faculties)
         {
-            this.url = $"https://timetable.tusur.ru/{faculties}/{groupID_Value}";
+            this.url = $"https://timetable.tusur.ru/faculties/{faculties}/groups/{groupID_Value}";
         }
         static private string __normalize_text(string text)
         {
@@ -39,8 +39,7 @@ namespace Smart_Alarm
         public List<Dictionary<string, object>> ParseTimetable()
         {
             List<Dictionary<string, object>> timetable = new List<Dictionary<string, object>>();
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(url);
+            var doc = new HtmlWeb().Load(url);
 
             var table = doc.DocumentNode.SelectSingleNode("//table[@class='table']");
             var thead = table.SelectSingleNode("thead");
