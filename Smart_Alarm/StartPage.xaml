@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center">
             <Entry x:Name="groupID" Placeholder="Ваша группа" />
-            <Picker x:Name="pickerFaculties" SelectedIndexChanged="picker_SelectedIndexChanged">
+            <Picker x:Name="pickerFaculties">
                 <Picker.Items>
                     <x:String>Аспирантура</x:String>
                     <x:String>Радиотехнический факультет</x:String>

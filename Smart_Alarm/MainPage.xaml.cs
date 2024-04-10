@@ -13,7 +13,7 @@ namespace Smart_Alarm
     public partial class MainPage : ContentPage
     {
         // Ошибка при парсинге(привести данные невозможно)
-        Parser parser = new Parser(Preferences.Get("faculties", "fb"), Preferences.Get("groupID", "723-2"));
+        //Parser parser = new Parser(Preferences.Get("faculties", "fb"), Preferences.Get("groupID", "723-2"));
         public MainPage()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace Smart_Alarm
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
-            Debug.WriteLine(parser.ParseTimetable());
+           // Debug.WriteLine(parser.ParseTimetable());
         }
     }
 }
