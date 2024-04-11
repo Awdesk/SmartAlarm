@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Smart_Alarm.StartPage">
-    <!-- Нужно зайдизайнить Picker, так как не понятно, что на него можно вообще
-     нажать. -->
+
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center">
-            <Entry x:Name="groupID" Placeholder="Ваша группа" />
-            <Picker x:Name="pickerFaculties">
+        <StackLayout HorizontalOptions="Center"  BackgroundColor="#d4ebf8">
+            <Label Text="SmartAlarm"  HorizontalOptions="Center" TextColor="#4c13ad" FontSize="40"/>
+            <Entry x:Name="groupID" Placeholder="Укажите вашу группу " ClearButtonVisibility="WhileEditing"  />
+            <Picker x:Name="pickerFaculties" Title="---Выберите ваш факультет---">
                 <Picker.Items>
                     <x:String>Аспирантура</x:String>
                     <x:String>Радиотехнический факультет</x:String>
@@ -23,11 +23,12 @@
                     <x:String>Заочный и вечерний факультет</x:String>
                 </Picker.Items>
             </Picker>
-            <Label Text=" Укажите время(в минутах) за которое вы добираетесь до различных корпусов:"/>
-            <Entry x:Name="timeGK" Placeholder="Главный корпус" />
-            <Entry x:Name="timeULK" Placeholder="УЛК" />
-            <Entry x:Name="timeFAT_RK" Placeholder="ФЭТ/РК"/>
-            <Button Text="Подтвердить" Margin="0,0,0,20" Clicked="ButtonCommit_Click"/>
+            <Label Text="Настройка времени умного будильника:" FontAttributes="bold" FontSize="20" TextColor="#4c13ad"/>
+            <Entry x:Name="timeGK" Placeholder="Главный корпус" ClearButtonVisibility="WhileEditing"  />
+            <Entry x:Name="timeULK" Placeholder="УЛК" ClearButtonVisibility="WhileEditing"  />
+            <Entry x:Name="timeFAT_RK" Placeholder="ФЭТ/РК" ClearButtonVisibility="WhileEditing"  />
+            <Button Text="Подтвердить" Margin="0,0,0,20" Clicked="ButtonCommit_Click" CornerRadius="20" BackgroundColor="SkyBlue"/>
+            <Button Text="Как работает настройка времени" Margin="0,0,0,20" Clicked="ButtonCommit_Click" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
