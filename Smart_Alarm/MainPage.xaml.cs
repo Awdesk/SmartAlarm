@@ -8,15 +8,23 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using HtmlAgilityPack;
 using System.Diagnostics;
+using System.IO;
 namespace Smart_Alarm
 {
     public partial class MainPage : ContentPage
     {
-        // Ошибка при парсинге(привести данные невозможно)
-        //Parser parser = new Parser(Preferences.Get("faculties", "fb"), Preferences.Get("groupID", "723-2"));
+        public string[] settings;
+        Parser parser;
         public MainPage()
         {
             InitializeComponent();
+            try
+            {
+                settings = File.ReadAllLines(App.settingsPath);
+            }
+            catch(Exception ex){
+                DisplayAlert("Ошибка", ex.Message, "ok");
+            }
         }
         protected override bool OnBackButtonPressed()
         {
@@ -26,7 +34,8 @@ namespace Smart_Alarm
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
-           // Debug.WriteLine(parser.ParseTimetable());
+            parser = new Parser(settings[0], settings[1]);
+            parser.ParseTimetable();
         }
     }
 }

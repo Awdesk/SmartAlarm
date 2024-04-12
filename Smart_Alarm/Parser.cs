@@ -2,21 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace Smart_Alarm
 {
-    internal struct Lessons
-    {
-        public DateTime time;
-        public string name;
-
-        public Lessons(DateTime time, string name)
-        {
-            this.time = time;
-            this.name = name;
-        }
-
-    }
     internal class Parser
     {
         private readonly string url;
@@ -24,6 +13,7 @@ namespace Smart_Alarm
         public Parser(string groupID_Value, string faculties)
         {
             this.url = $"https://timetable.tusur.ru/faculties/{faculties}/groups/{groupID_Value}";
+            ParseTimetable();
         }
         static private string __normalize_text(string text)
         {

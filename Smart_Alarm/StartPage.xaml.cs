@@ -16,13 +16,23 @@ namespace Smart_Alarm
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StartPage : ContentPage
     {
-        // Если констант будет много, нужно создать отдельный файл с константами, чтобы избежать дублирование кода
-        const string localFileName = "Settings.txt";
-        readonly string localPath;
+        Dictionary<string, string> faculties = new Dictionary<string, string>{
+            {"Аспирантура", "aspirantura"},
+            {"Радиотехнический факультет", "rtf"},
+            {"Факультет вычислительных систем", "fvs"},
+            {"Факультет систем управления", "fsu"},
+            {"Радиоконструкторский факультет", "rkf"},
+            {"Факультет инновационных технологий", "fit"},
+            {"Экономический факульт", "ef"},
+            {"Гуманитарный факультет", "gf"},
+            {"Юридический факультет", "yuf"},
+            {"Факультет безопасности", "fb"},
+            {"Заочный и вечерний факультет", "zivf"},
+            {"Факультет электронной техники", "fet" }
+        };
         public StartPage()
         {
             InitializeComponent();
-            localPath = Path.Combine(FileSystem.AppDataDirectory, localFileName);
         }
         protected override void OnAppearing()
         {
@@ -36,7 +46,7 @@ namespace Smart_Alarm
                 && IsNumericString(timeFAT_RK.Text) && IsNumericString(groupID.Text))
             {
                 // Записываем данные в файл, если его нет, то он создаётся
-                File.WriteAllText(localPath, $"{groupID.Text}\n{pickerFaculties.Items[pickerFaculties.SelectedIndex]}\n{timeULK.Text}\n{timeGK.Text}\n{timeFAT_RK.Text}");
+                File.WriteAllText(App.settingsPath, $"{groupID.Text}\n{faculties[pickerFaculties.Items[pickerFaculties.SelectedIndex]]}\n{timeULK.Text}\n{timeGK.Text}\n{timeFAT_RK.Text}");
                 await Navigation.PushAsync(new MainPage());
             }
             else

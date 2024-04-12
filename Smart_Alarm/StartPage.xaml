@@ -28,7 +28,7 @@
             <Entry x:Name="timeULK" Placeholder="УЛК" ClearButtonVisibility="WhileEditing"  />
             <Entry x:Name="timeFAT_RK" Placeholder="ФЭТ/РК" ClearButtonVisibility="WhileEditing"  />
             <Button Text="Подтвердить" Margin="0,0,0,20" Clicked="ButtonCommit_Click" CornerRadius="20" BackgroundColor="SkyBlue"/>
-            <Button Text="Как работает настройка времени" Margin="0,0,0,20" Clicked="ButtonCommit_Click" />
+            <!-->Button Text="Как работает настройка времени" Margin="0,0,0,20" Clicked="ButtonCommit_Click" -->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
