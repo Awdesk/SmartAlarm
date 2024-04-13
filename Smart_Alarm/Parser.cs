@@ -13,11 +13,11 @@ namespace Smart_Alarm
             this.auditoriums = auditoriums;
             this.time = time;
             this.discipline = discipline;
-            this.data = date;
+            this.date = date;
         }
         public string discipline;
         public string auditoriums;
-        public string data;
+        public string date;
         public string time;
     }
 
@@ -39,15 +39,15 @@ namespace Smart_Alarm
             int count = 0;
             foreach (var day in days)
             {
-                if (count < 7)
+                if (count < 6)
                 {
-                    //var discipline = day.SelectNodes("//span[@class='discipline'][text()]").Where((stringa) => stringa != null).First().InnerText;
-                    var discipline = day.SelectSingleNode("//span[@class='discipline'][text()]").InnerText;
-                    var auditoriums = day.SelectSingleNode("//span[@class='auditoriums'][text()]").InnerText;
-                    string[] data = new string[] { day.SelectSingleNode("//div[@class='modal-body']/p[2][text()]").InnerText,
-                    day.SelectSingleNode("//div[@class='modal-body']/p[3][text()]").InnerText };
+                    var discipline = day.SelectSingleNode("/span[@class='discipline'][text()]").InnerText;
+                    var auditoriums = day.SelectSingleNode("/span[@class='auditoriums'][text()]").InnerText;
+                    string[] data = new string[] { day.SelectSingleNode("/div[@class='modal-body']/p[2][text()]").InnerText,
+                    day.SelectSingleNode("/div[@class='modal-body']/p[3][text()]").InnerText };
                     Lesson newLesson = new Lesson(discipline, auditoriums, data[0], data[1]);
                     lessons.Add(newLesson);
+                    day.RemoveAll();
                 }
                 else
                     break;
