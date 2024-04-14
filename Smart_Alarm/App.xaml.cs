@@ -7,7 +7,8 @@ using Xamarin.Forms.Xaml;
 namespace Smart_Alarm
 {
     public partial class App : Application
-    {
+    {   
+        //Хранить здесь все константные значения
         public static string localPath = FileSystem.AppDataDirectory;
         public static string settingsPath = Path.Combine(localPath, "localSettings.txt");
         public static string htmlPath = Path.Combine(App.localPath, $"tusurSite.html");

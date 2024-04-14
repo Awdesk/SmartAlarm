@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using HtmlAgilityPack;
-using System.Diagnostics;
 using System.IO;
 namespace Smart_Alarm
 {
@@ -23,7 +18,9 @@ namespace Smart_Alarm
                 settings = File.ReadAllLines(App.settingsPath);
             }
             catch(Exception ex){
-                DisplayAlert("Ошибка", ex.Message, "ok");
+                //Если произошла ошибка, сделайте возможность перейти на страницу с настройками, 
+                //чтобы сохранить файл повторно, хотя возникновение такой ошибки маловероятно.
+                DisplayAlert("Ошибка", $"Ошибка чтения файла настроек: {ex.Message}", "ok");
             }
         }
         protected override bool OnBackButtonPressed()
@@ -34,6 +31,8 @@ namespace Smart_Alarm
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
+            //Сделайте таймер перед повторным использованием парсера, чтобы не досить сайт, иначе по IP вычислят
+            //Предполагается сохранять структуру на телефон, если структура есть и файл со структурой создан меньше 30 минут, то блокировать попытку парсинга
             parser = new Parser(settings[0], settings[1]);
             parser.ParseTimetable();
         }
