@@ -47,7 +47,8 @@ namespace Smart_Alarm
             {
                 // Записываем данные в файл, если его нет, то он создаётся
                 File.WriteAllText(App.settingsPath, $"{groupID.Text}\n{faculties[pickerFaculties.Items[pickerFaculties.SelectedIndex]]}\n{timeULK.Text}\n{timeGK.Text}\n{timeFAT_RK.Text}");
-                await Navigation.PushAsync(new MainPage());
+                Navigation.InsertPageBefore(new MainPage(), this);
+                await Navigation.PopAsync();
             }
             else
                 await DisplayAlert("Ошибка", "Проверьте введенные данные", "OK");

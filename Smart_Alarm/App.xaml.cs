@@ -19,10 +19,10 @@ namespace Smart_Alarm
             if (!File.Exists(settingsPath))
             {
                 MainPage = new NavigationPage(new StartPage());
-            }
-            else MainPage = new MainPage();
+            } 
+            else
+                MainPage = new NavigationPage(new MainPage());
         }
-
         protected override void OnStart()
         {
         }
