@@ -1,24 +1,26 @@
 ﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Smart_Alarm
 {
     public struct Lesson
     {
-        /// <param name = time" > Время начало пары c лишними символами, например: "\n            Время проведения:\n            10:40-12:15\n          " </param>
-        /// <param name = date" > Дата начало пары с лишними символами, например: Дата проведения:\n          08.04.2024\n  </param>
-        // В конструкторе необходимо убрать лишние символы. Привести к типу DataTime 
+        /// <param name = time" > Время начало пары, например: 10:40-12:15 </param>
+        /// <param name = date" > Дата начало пары, например: 08.04.2024  </param>
         public Lesson(string discipline, string auditoriums, string date, string time)
         {
             this.auditoriums = auditoriums;
             this.time = time;
             this.discipline = discipline;
-            this.date = date;
+            //date + time
+            dateTime = DateTime.ParseExact(date + " " + time.Split('-')[0], "dd.MM.yyyy HH:mm",CultureInfo.InvariantCulture);
         }
+        public DateTime dateTime;
         public string discipline;
         public string auditoriums;
-        public string date;
         public string time;
     }
 
@@ -50,10 +52,10 @@ namespace Smart_Alarm
             {
                 if (count < 6)
                 {
-                    var discipline = day.SelectSingleNode("/span[@class='discipline'][text()]").InnerText;
-                    var auditoriums = day.SelectSingleNode("/span[@class='auditoriums'][text()]").InnerText;
-                    string[] data = new string[] { day.SelectSingleNode("/div[@class='modal-body']/p[2][text()]").InnerText,
-                    day.SelectSingleNode("/div[@class='modal-body']/p[3][text()]").InnerText };
+                    var discipline = day.SelectSingleNode("//div[@class='hidden for_print']//span[@class='discipline'][text()]").InnerText.Trim();
+                    var auditoriums = day.SelectSingleNode("//span[@class='auditoriums'][text()]").InnerText.Trim();
+                    string[] data = new string[] { day.SelectSingleNode("//div[@class='modal-body']/p[2][text()]").InnerText.Split('\n')[2].Trim(),
+                    day.SelectSingleNode("//div[@class='modal-body']/p[3][text()]").InnerText.Split('\n')[2].Trim() };
                     Lesson newLesson = new Lesson(discipline, auditoriums, data[0], data[1]);
                     lessons.Add(newLesson);
                     day.RemoveAll();
