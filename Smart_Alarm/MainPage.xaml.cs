@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using HtmlAgilityPack;
 using System.IO;
+using Xamarin.Forms.Shapes;
 namespace Smart_Alarm
 {
     public partial class MainPage : ContentPage
     {
+        private bool isFirstRun = true;
         Parser parser;
         public MainPage()
         {
@@ -19,19 +19,34 @@ namespace Smart_Alarm
             string[] settings;
             try
             {
-                settings = File.ReadAllLines(App.settingsPath);
+                // Костыль с isFirstRun мне не нравится, но по другому не могу придумать.
+                if (isFirstRun || DateTime.Now > File.GetLastAccessTime(App.settingsPath).AddMinutes(5))
+                {
+                    settings = File.ReadAllLines(App.settingsPath);
+                    File.SetLastAccessTime(App.settingsPath, DateTime.Now);
+                    isFirstRun = false;
+                }
+                else
+                {
+                    await DisplayAlert("Внимание", "Не так быстро, ковбой. Подождите минутку", "ОК");
+                    return;
+                }
             }
             catch (Exception)
             {
-                await DisplayAlert("Ошибка", "Похоже файл с настройками отстутствует?", "ОК");
+                await DisplayAlert("Ошибка", "Похоже, что файл с настройками отстутствует?", "ОК");
                 Navigation.InsertPageBefore(new StartPage(), this);
                 await Navigation.PopAsync();
                 return;
             }
-            //Сделайте таймер перед повторным использованием парсера, чтобы не досить сайт, иначе по IP вычислят
-            //Предполагается сохранять структуру на телефон, если структура есть и файл со структурой создан меньше 30 минут, то блокировать попытку парсинга
-            parser = new Parser(settings[0], settings[1]);
-            parser.ParseTimetable();
+            activityIndicator1.IsRunning = true;
+            await Task.Run(() =>
+            {
+                parser = new Parser(settings[0], settings[1]);
+                parser.ParseTimetable();
+            });
+            activityIndicator1.IsRunning = false;
+
         }
     }
 }

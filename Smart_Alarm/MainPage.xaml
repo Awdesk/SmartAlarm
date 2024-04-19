@@ -4,6 +4,10 @@
              x:Class="Smart_Alarm.MainPage">
 
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <ActivityIndicator x:Name="activityIndicator1"
+                       Color="Orange"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="Fill" />
         <Button Text="Парсер" Clicked="OnMainPageButtonClicked"/>
     </StackLayout>
 
