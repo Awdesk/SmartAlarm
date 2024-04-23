@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Smart_Alarm
 {
-    public struct Lesson
+    internal struct Lesson
     {
         /// <param name = time" > Время начало пары, например: 10:40-12:15 </param>
         /// <param name = date" > Дата начало пары, например: 08.04.2024  </param>

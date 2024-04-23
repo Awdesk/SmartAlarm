@@ -1,15 +1,21 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+using System.Collections.Generic;
 using System.IO;
-using Xamarin.Forms.Shapes;
-namespace Smart_Alarm
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace Smart_Alarm.Pages
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class FlyoutDetailAlarm : ContentPage
     {
         private bool isFirstRun = true;
         Parser parser;
-        public MainPage()
+        public FlyoutDetailAlarm()
         {
             InitializeComponent();
         }

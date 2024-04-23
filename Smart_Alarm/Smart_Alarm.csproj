@@ -18,13 +18,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="StartPage.xaml.cs">
+    <Compile Update="Pages\FlyoutDetailAlarm.xaml.cs">
+      <DependentUpon>FlyoutDetailAlarm.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="StartPage.xaml">
+    <EmbeddedResource Update="Pages\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\FlyoutDetailAlarm.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\FlyoutPage1Flyout.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\StartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

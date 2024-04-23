@@ -1,16 +1,12 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Smart_Alarm
+namespace Smart_Alarm.Pages
 {
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -47,7 +43,7 @@ namespace Smart_Alarm
             {
                 // Записываем данные в файл, если его нет, то он создаётся
                 File.WriteAllText(App.settingsPath, $"{groupID.Text}\n{faculties[pickerFaculties.Items[pickerFaculties.SelectedIndex]]}\n{timeULK.Text}\n{timeGK.Text}\n{timeFAT_RK.Text}");
-                Navigation.InsertPageBefore(new MainPage(), this);
+                Navigation.InsertPageBefore(new FlyoutPage1(), this);
                 await Navigation.PopAsync();
             }
             else

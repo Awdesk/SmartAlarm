@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Smart_Alarm.Pages;
+using System;
 using System.IO;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -19,9 +20,9 @@ namespace Smart_Alarm
             if (!File.Exists(settingsPath))
             {
                 MainPage = new NavigationPage(new StartPage());
-            } 
+            }
             else
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new FlyoutPage1();
         }
         protected override void OnStart()
         {
