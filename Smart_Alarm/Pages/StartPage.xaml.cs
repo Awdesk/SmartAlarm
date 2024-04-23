@@ -38,13 +38,18 @@ namespace Smart_Alarm.Pages
         private async void ButtonCommit_Click(object sender, EventArgs e)
         {
             // Проверка на корректность введенных данных P.S. Добавьте больше проверок
+            // Если ничего не вводить, то приложение вылетает
             if (IsNumericString(timeGK.Text) && IsNumericString(timeULK.Text) 
                 && IsNumericString(timeFAT_RK.Text) && IsNumericString(groupID.Text))
             {
                 // Записываем данные в файл, если его нет, то он создаётся
                 File.WriteAllText(App.settingsPath, $"{groupID.Text}\n{faculties[pickerFaculties.Items[pickerFaculties.SelectedIndex]]}\n{timeULK.Text}\n{timeGK.Text}\n{timeFAT_RK.Text}");
-                Navigation.InsertPageBefore(new FlyoutPage1(), this);
-                await Navigation.PopAsync();
+                if (Application.Current.MainPage is NavigationPage)
+                {
+                    Application.Current.MainPage = new FlyoutPage1();
+                    await Navigation.PopAsync();
+                }
+                else await DisplayAlert("Успешно", "Настройки обновлены", "OK");
             }
             else
                 await DisplayAlert("Ошибка", "Проверьте введенные данные", "OK");

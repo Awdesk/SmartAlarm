@@ -17,12 +17,12 @@ namespace Smart_Alarm
         {
             InitializeComponent();
             // Проверка на наличие сохраненных данных
-            if (!File.Exists(settingsPath))
+            if (File.Exists(settingsPath))
             {
                 MainPage = new NavigationPage(new StartPage());
             }
             else
-                MainPage = new FlyoutPage1();
+            MainPage = new FlyoutPage1();
         }
         protected override void OnStart()
         {

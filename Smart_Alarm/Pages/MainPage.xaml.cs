@@ -17,11 +17,19 @@ namespace Smart_Alarm.Pages
         {
             flyoutPage = new FlyoutPage1Flyout();
             Flyout = flyoutPage;
+            // Дефолтная страница
             Detail = new NavigationPage(new FlyoutDetailAlarm());
 
             flyoutPage.MenuItemsListView.ItemSelected += OnItemSelected;
         }
-
+        public void SetDetail(Page page)
+        {
+            Detail = new NavigationPage(page);
+        }
+        public void HideFlyout()
+        {
+            Flyout = null;
+        }
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as FlyoutPage1FlyoutMenuItem;
