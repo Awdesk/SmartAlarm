@@ -3,9 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Smart_Alarm.Pages.FlyoutDetailAlarm"
              Title="Detail">
-<<<<<<< Updated upstream
-    <StackLayout VerticalOptions="End" HorizontalOptions="CenterAndExpand">
-=======
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
         <ListView  x:Name="lstView" RowHeight="60">
             <ListView.ItemTemplate>
@@ -22,7 +19,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
->>>>>>> Stashed changes
         <ActivityIndicator x:Name="activityIndicator1"
                    Color="Orange"
                    VerticalOptions="End"

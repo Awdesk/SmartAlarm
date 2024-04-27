@@ -54,13 +54,9 @@ namespace Smart_Alarm.Pages
                 File.WriteAllText(App.savedTimetablePath, string.Join(Environment.NewLine, lines));
             });
             activityIndicator1.IsRunning = false;
-<<<<<<< Updated upstream
-
-=======
             time_of_alarm = new ObservableCollection<Alarm.Alarm>();
             time_of_alarm.Add(new Alarm.Alarm { DateTime = lessons[0].dateTime, Name = lessons[0].time, Description = $"{lessons[0].auditoriums} {lessons[0].discipline}"});
             lstView.ItemsSource = time_of_alarm;
->>>>>>> Stashed changes
         }
     }
 }
