@@ -3,7 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Smart_Alarm.Pages.FlyoutDetailAlarm"
              Title="Detail">
+<<<<<<< Updated upstream
     <StackLayout VerticalOptions="End" HorizontalOptions="CenterAndExpand">
+=======
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <ListView  x:Name="lstView" RowHeight="60">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" BackgroundColor="Beige">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text = "{Binding Time}" FontSize="24" AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"/>
+                                <Label Text = "{Binding Where}" AbsoluteLayout.LayoutBounds="50, 35, 200, 25"/>
+                            </StackLayout>
+                            <Switch IsEnabled="{Binding Turn}" HorizontalOptions="End"   />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+>>>>>>> Stashed changes
         <ActivityIndicator x:Name="activityIndicator1"
                    Color="Orange"
                    VerticalOptions="End"

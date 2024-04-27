@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Smart_Alarm.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FlyoutDetailAlarm : ContentPage
     {
+        public ObservableCollection<Alarm.Alarm> time_of_alarm { get; set; }
+        List<Lesson> lessons;
         public FlyoutDetailAlarm()
         {
             InitializeComponent();
@@ -46,12 +49,18 @@ namespace Smart_Alarm.Pages
             await Task.Run(() =>
             {
                 Parser parser = new Parser(settings[0], settings[1]);
-                List<Lesson> lessons = parser.ParseTimetable();
+                lessons = parser.ParseTimetable();
                 string[] lines = lessons.Select(lesson => $"{lesson.discipline};{lesson.auditoriums};{lesson.dateTime:dd.MM.yyyy HH:mm}").ToArray();
                 File.WriteAllText(App.savedTimetablePath, string.Join(Environment.NewLine, lines));
-            }).ConfigureAwait(false);
+            });
             activityIndicator1.IsRunning = false;
+<<<<<<< Updated upstream
 
+=======
+            time_of_alarm = new ObservableCollection<Alarm.Alarm>();
+            time_of_alarm.Add(new Alarm.Alarm { DateTime = lessons[0].dateTime, Name = lessons[0].time, Description = $"{lessons[0].auditoriums} {lessons[0].discipline}"});
+            lstView.ItemsSource = time_of_alarm;
+>>>>>>> Stashed changes
         }
     }
 }
