@@ -8,7 +8,7 @@
               SeparatorVisibility="None"
               HasUnevenRows="true">
             <ListView.ItemsSource>
-                <!-->Сюда добавлять новые страницы -->
+                <!-->Сюда добавлять новые страницы для бокового меню -->
                 <x:Array Type="{x:Type local:FlyoutPage1FlyoutMenuItem}">
                     <local:FlyoutPage1FlyoutMenuItem Title="Будильник" TargetType="{x:Type local:FlyoutDetailAlarm}" />
                     <local:FlyoutPage1FlyoutMenuItem Title="Настройки" TargetType="{x:Type local:StartPage}" />

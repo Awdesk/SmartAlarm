@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,6 @@ namespace Smart_Alarm.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FlyoutDetailAlarm : ContentPage
     {
-        private bool isFirstRun = true;
-        Parser parser;
         public FlyoutDetailAlarm()
         {
             InitializeComponent();
@@ -25,12 +24,10 @@ namespace Smart_Alarm.Pages
             string[] settings;
             try
             {
-                // Костыль с isFirstRun мне не нравится, но по другому не могу придумать.
-                if (isFirstRun || DateTime.Now > File.GetLastAccessTime(App.settingsPath).AddMinutes(5))
+                if (!File.Exists(App.savedTimetablePath) || DateTime.Now > File.GetLastAccessTime(App.settingsPath).AddMinutes(1))
                 {
                     settings = File.ReadAllLines(App.settingsPath);
                     File.SetLastAccessTime(App.settingsPath, DateTime.Now);
-                    isFirstRun = false;
                 }
                 else
                 {
@@ -48,11 +45,12 @@ namespace Smart_Alarm.Pages
             activityIndicator1.IsRunning = true;
             await Task.Run(() =>
             {
-                parser = new Parser(settings[0], settings[1]);
-                parser.ParseTimetable();
-            });
+                Parser parser = new Parser(settings[0], settings[1]);
+                List<Lesson> lessons = parser.ParseTimetable();
+                string[] lines = lessons.Select(lesson => $"{lesson.discipline};{lesson.auditoriums};{lesson.dateTime:dd.MM.yyyy HH:mm}").ToArray();
+                File.WriteAllText(App.savedTimetablePath, string.Join(Environment.NewLine, lines));
+            }).ConfigureAwait(false);
             activityIndicator1.IsRunning = false;
-
         }
     }
 }
