@@ -51,6 +51,7 @@ namespace Smart_Alarm.Pages
                 File.WriteAllText(App.savedTimetablePath, string.Join(Environment.NewLine, lines));
             }).ConfigureAwait(false);
             activityIndicator1.IsRunning = false;
+
         }
     }
 }

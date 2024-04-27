@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Smart_Alarm.Pages.FlyoutDetailAlarm"
              Title="Detail">
-    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+    <StackLayout VerticalOptions="End" HorizontalOptions="CenterAndExpand">
         <ActivityIndicator x:Name="activityIndicator1"
                    Color="Orange"
-                   VerticalOptions="CenterAndExpand"
+                   VerticalOptions="End"
                    HorizontalOptions="Fill" />
         <Button Text="Парсер" Clicked="OnMainPageButtonClicked"/>
     </StackLayout>
