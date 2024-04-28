@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json;
+using Smart_Alarm.FilesJSON;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,12 +40,23 @@ namespace Smart_Alarm.Pages
         private async void ButtonCommit_Click(object sender, EventArgs e)
         {
             // Проверка на корректность введенных данных P.S. Добавьте больше проверок
-            // Если ничего не вводить, то приложение вылетает
             if (IsNumericString(timeGK.Text) && IsNumericString(timeULK.Text) 
                 && IsNumericString(timeFAT_RK.Text) && IsNumericString(groupID.Text))
             {
-                // Записываем данные в файл, если его нет, то он создаётся
-                File.WriteAllText(App.settingsPath, $"{groupID.Text}\n{faculties[pickerFaculties.Items[pickerFaculties.SelectedIndex]]}\n{timeULK.Text}\n{timeGK.Text}\n{timeFAT_RK.Text}");
+                SettingsJSON data = new SettingsJSON
+                {
+                    GroupID = groupID.Text,
+                    Faculty = faculties[pickerFaculties.Items[pickerFaculties.SelectedIndex]],
+                    TimeULK = timeULK.Text,
+                    TimeGK = timeGK.Text,
+                    TimeFAT_RK = timeFAT_RK.Text
+                };
+
+                // Преобразование данных в JSON
+                string json = JsonConvert.SerializeObject(data);
+
+                // Запись JSON в файл
+                File.WriteAllText(App.settingsPath, json);
                 if (Application.Current.MainPage is NavigationPage)
                 {
                     Application.Current.MainPage = new FlyoutPage1();
@@ -56,6 +69,8 @@ namespace Smart_Alarm.Pages
         }
         private bool IsNumericString(string str)
         {
+            if (str == null)
+                return false;
             return str.All(c => char.IsDigit(c) || c == '-');
         }
     }

@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Smart_Alarm.Alarm"
              x:Class="Smart_Alarm.Pages.FlyoutDetailAlarm"
              Title="Detail">
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
         <ListView  x:Name="lstView" RowHeight="60">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <local:CustomAlarmCell>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" BackgroundColor="Beige">
                             <StackLayout Orientation="Vertical">
-                                <Label Text = "{Binding Time}" FontSize="24" AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"/>
+                                <Label Text = "{Binding Name}" FontSize="24" AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"/>
                                 <Label Text = "{Binding Where}" AbsoluteLayout.LayoutBounds="50, 35, 200, 25"/>
                             </StackLayout>
                             <Switch IsEnabled="{Binding Turn}" HorizontalOptions="End"   />
                         </StackLayout>
-                    </ViewCell>
+                    </local:CustomAlarmCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

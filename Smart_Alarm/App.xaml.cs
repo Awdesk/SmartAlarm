@@ -11,13 +11,13 @@ namespace Smart_Alarm
     {   
         //Хранить здесь все константные значения
         public static string localPath = FileSystem.AppDataDirectory;
-        public static string settingsPath = Path.Combine(localPath, "localSettings.txt");
-        public static string savedTimetablePath = Path.Combine(localPath, "timetable.txt");
+        public static string settingsPath = Path.Combine(localPath, "localSettings.json");
+        public static string savedTimetablePath = Path.Combine(localPath, "timetable.json");
         public App()
         {
             InitializeComponent();
             // Проверка на наличие сохраненных данных
-            if (File.Exists(settingsPath))
+            if (!File.Exists(settingsPath))
             {
                 MainPage = new NavigationPage(new StartPage());
             }

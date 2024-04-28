@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Smart_Alarm.FilesJSON;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -12,24 +14,41 @@ using Xamarin.Forms.Xaml;
 
 namespace Smart_Alarm.Pages
 {
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FlyoutDetailAlarm : ContentPage
     {
         public ObservableCollection<Alarm.Alarm> time_of_alarm { get; set; }
-        List<Lesson> lessons;
+        List<LessonJSON> lessons;
         public FlyoutDetailAlarm()
         {
             InitializeComponent();
+            if (File.Exists(App.savedTimetablePath))
+            {
+                string json = File.ReadAllText(App.savedTimetablePath);
+                List<LessonJSON> lessons = JsonConvert.DeserializeObject<List<LessonJSON>>(json);
+
+            }
+        }
+        public ObservableCollection<Alarm.Alarm> GetAlarmData(List<LessonJSON> lessons)
+        {
+            ObservableCollection<Alarm.Alarm> alarms = new ObservableCollection<Alarm.Alarm>();
+            foreach (var item in lessons)
+            {
+                alarms.Add(new Alarm.Alarm { DateTime = DateTime.Parse(item.Time), Name = item.Date, Description = item.Discipline });
+            }
+            return alarms;
         }
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
-            string[] settings;
+            SettingsJSON settings;
             try
             {
                 if (!File.Exists(App.savedTimetablePath) || DateTime.Now > File.GetLastAccessTime(App.settingsPath).AddMinutes(1))
                 {
-                    settings = File.ReadAllLines(App.settingsPath);
+                    string json = File.ReadAllText(App.settingsPath);
+                    settings = JsonConvert.DeserializeObject<SettingsJSON>(json);
                     File.SetLastAccessTime(App.settingsPath, DateTime.Now);
                 }
                 else
@@ -48,15 +67,15 @@ namespace Smart_Alarm.Pages
             activityIndicator1.IsRunning = true;
             await Task.Run(() =>
             {
-                Parser parser = new Parser(settings[0], settings[1]);
+                Parser parser = new Parser(settings.GroupID, settings.Faculty);
                 lessons = parser.ParseTimetable();
-                string[] lines = lessons.Select(lesson => $"{lesson.discipline};{lesson.auditoriums};{lesson.dateTime:dd.MM.yyyy HH:mm}").ToArray();
-                File.WriteAllText(App.savedTimetablePath, string.Join(Environment.NewLine, lines));
+                Debug.WriteLine(lessons);
+                string json = JsonConvert.SerializeObject(lessons);
+                //На этом моменте приложение вылетает. Исправлю к вечеру.
+                File.WriteAllText(App.savedTimetablePath, json);
             });
             activityIndicator1.IsRunning = false;
-            time_of_alarm = new ObservableCollection<Alarm.Alarm>();
-            time_of_alarm.Add(new Alarm.Alarm { DateTime = lessons[0].dateTime, Name = lessons[0].time, Description = $"{lessons[0].auditoriums} {lessons[0].discipline}"});
-            lstView.ItemsSource = time_of_alarm;
+            lstView.ItemsSource = GetAlarmData(lessons);
         }
     }
 }
