@@ -18,9 +18,9 @@ namespace Smart_Alarm
     {
         private readonly string url;
 
-        public Parser(string groupID_Value, string faculties)
+        public Parser(SettingsJSON settings)
         {
-            this.url = $"https://timetable.tusur.ru/faculties/{faculties}/groups/{groupID_Value}";
+            url = $"https://timetable.tusur.ru/faculties/{settings.Faculty}/groups/{settings.GroupID}";
         }
         /// <summary>
         /// Парсит расписание за текущую неделю

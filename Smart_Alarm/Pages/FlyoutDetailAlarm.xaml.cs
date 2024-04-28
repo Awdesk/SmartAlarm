@@ -34,7 +34,7 @@ namespace Smart_Alarm.Pages
             ObservableCollection<Alarm.Alarm> alarms = new ObservableCollection<Alarm.Alarm>();
             foreach (var item in lessons)
             {
-                alarms.Add(new Alarm.Alarm { DateTime = item.DateTime, Name = item.Time, Description = $"{item.Date} " + '\n' + $"{item.Discipline} {item.Auditorums} " });
+                alarms.Add(new Alarm.Alarm { DateTime = item.DateTime, Name = item.Time, Description = $"{item.Date} " + '\n' + $"{item.Discipline} {item.Auditorums}" });
             }
             return alarms;
         }
@@ -66,7 +66,7 @@ namespace Smart_Alarm.Pages
             activityIndicator1.IsRunning = true;
             await Task.Run(() =>
             {
-                Parser parser = new Parser(settings.GroupID, settings.Faculty);
+                Parser parser = new Parser(settings);
                 lessons = parser.ParseTimetable();
                 Debug.WriteLine(lessons);
                 string json = JsonConvert.SerializeObject(lessons);
