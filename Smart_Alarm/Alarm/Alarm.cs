@@ -11,5 +11,6 @@ namespace Smart_Alarm.Alarm
         public string Description { get; set; }
         public DateTime DateTime { get; set; }
         public MediaPlayer Ringtone { get; set; }
+        public bool IsToggled { get; set; } = true;
     }
 }

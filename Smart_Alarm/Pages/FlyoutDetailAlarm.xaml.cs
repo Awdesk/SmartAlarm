@@ -34,7 +34,7 @@ namespace Smart_Alarm.Pages
             ObservableCollection<Alarm.Alarm> alarms = new ObservableCollection<Alarm.Alarm>();
             foreach (var item in lessons)
             {
-                alarms.Add(new Alarm.Alarm { DateTime = DateTime.Parse(item.Time), Name = item.Date, Description = item.Discipline });
+                alarms.Add(new Alarm.Alarm { DateTime = item.DateTime, Name = item.Time, Description = $"{item.Date} " + '\n' + $"{item.Discipline} {item.Auditorums} " });
             }
             return alarms;
         }
