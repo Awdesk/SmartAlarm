@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using static Android.Renderscripts.Sampler;
 
 namespace Smart_Alarm.FilesJSON
 {
@@ -20,14 +19,14 @@ namespace Smart_Alarm.FilesJSON
     {
         public string Discipline { get; set; }
         public string Auditorums { get; set; }
+        private string _time;
         public string Time
         {
-            get { return Time; }
+            get { return _time; }
             set
             {
                 int index = value.IndexOf('-');
-                if (index != -1)
-                    Time = value.Substring(0, index);
+                _time = index != -1 ? value.Substring(0, index) : value;
             }
         }
 
@@ -35,11 +34,7 @@ namespace Smart_Alarm.FilesJSON
 
         public DateTime DateTime
         {
-            get { return DateTime; }
-            set
-            {
-                DateTime = DateTime.ParseExact(Date + " " + Time, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
-            }
+            get => DateTime.ParseExact($"{Date} {Time}", "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
         }
     }
 }

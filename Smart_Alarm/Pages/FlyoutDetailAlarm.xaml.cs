@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -27,7 +25,8 @@ namespace Smart_Alarm.Pages
             {
                 string json = File.ReadAllText(App.savedTimetablePath);
                 List<LessonJSON> lessons = JsonConvert.DeserializeObject<List<LessonJSON>>(json);
-
+                lstView.ItemsSource = GetAlarmData(lessons);
+                button.Text = "Обновить расписание";
             }
         }
         public ObservableCollection<Alarm.Alarm> GetAlarmData(List<LessonJSON> lessons)
@@ -71,7 +70,6 @@ namespace Smart_Alarm.Pages
                 lessons = parser.ParseTimetable();
                 Debug.WriteLine(lessons);
                 string json = JsonConvert.SerializeObject(lessons);
-                //На этом моменте приложение вылетает. Исправлю к вечеру.
                 File.WriteAllText(App.savedTimetablePath, json);
             });
             activityIndicator1.IsRunning = false;

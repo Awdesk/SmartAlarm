@@ -3,17 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Smart_Alarm.Alarm"
              x:Class="Smart_Alarm.Pages.FlyoutDetailAlarm"
              Title="Detail">
-    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+    <StackLayout>
         <ListView  x:Name="lstView" RowHeight="60">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:CustomAlarmCell>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" BackgroundColor="Beige">
-                            <StackLayout Orientation="Vertical">
+                        <StackLayout BackgroundColor="Beige">
+                            <StackLayout>
                                 <Label Text = "{Binding Name}" FontSize="24" AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"/>
                                 <Label Text = "{Binding Where}" AbsoluteLayout.LayoutBounds="50, 35, 200, 25"/>
                             </StackLayout>
-                            <Switch IsEnabled="{Binding Turn}" HorizontalOptions="End"   />
+                            <Switch IsToggled="{Binding Turn}" HorizontalOptions="End"   />
                         </StackLayout>
                     </local:CustomAlarmCell>
                 </DataTemplate>
@@ -23,6 +23,6 @@
                    Color="Orange"
                    VerticalOptions="End"
                    HorizontalOptions="Fill" />
-        <Button Text="Парсер" Clicked="OnMainPageButtonClicked"/>
+        <Button Text="Парсер" Clicked="OnMainPageButtonClicked" x:Name="button"/>
     </StackLayout>
 </ContentPage>
