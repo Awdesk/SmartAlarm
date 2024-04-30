@@ -3,18 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Smart_Alarm.Alarm"
              x:Class="Smart_Alarm.Pages.FlyoutDetailAlarm"
              Title="Detail">
-    <StackLayout>
-        <ListView  x:Name="lstView" RowHeight="80">
+    <StackLayout BackgroundColor="#F5F5F5">
+        <ListView x:Name="lstView" RowHeight="80">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout BackgroundColor="Beige" Orientation="Horizontal">
-                            <StackLayout Margin="5,0,0,0">
-                                <Label Text="{Binding Name}" FontSize="24" HorizontalOptions="FillAndExpand"/>
-                                <Label Text="{Binding Description}" HorizontalOptions="FillAndExpand"/>
+                        <StackLayout BackgroundColor="#FFFFFF" Orientation="Horizontal">
+                            <StackLayout Margin="5,0,0,0" HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Name}" FontSize="24" TextColor="#333333" FontAttributes="Bold"
+                                   HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                                <Label Text="{Binding Description}" TextColor="#666666"
+                                   HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
                             </StackLayout>
-                            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="End">
-                                <Switch IsToggled="{Binding IsToggled}" HorizontalOptions="End" Margin="0,0,0,0" />
+                            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" WidthRequest="50">
+                                <Switch IsToggled="{Binding IsToggled}" OnColor="#77D065"
+                                    HorizontalOptions="End" VerticalOptions="Center"/>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>
@@ -22,9 +25,9 @@
             </ListView.ItemTemplate>
         </ListView>
         <ActivityIndicator x:Name="activityIndicator1"
-                   Color="Orange"
-                   VerticalOptions="End"
-                   HorizontalOptions="Fill" />
-        <Button Text="Парсер" Clicked="OnMainPageButtonClicked" x:Name="button"/>
+                      Color="#FFA500"
+                      VerticalOptions="End"
+                      HorizontalOptions="Fill" />
+        <Button Text="Парсер" Clicked="OnMainPageButtonClicked" x:Name="button" BackgroundColor="#007ACC" TextColor="#FFFFFF"/>
     </StackLayout>
 </ContentPage>
