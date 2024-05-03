@@ -66,14 +66,14 @@ namespace Smart_Alarm.Pages
             activityIndicator1.IsRunning = true;
             await Task.Run(() =>
             {
-                Parser parser = new Parser(settings);
+                Parser parser = new Parser(settings, flag:true);
                 lessons = parser.ParseTimetable();
-                Debug.WriteLine(lessons);
                 string json = JsonConvert.SerializeObject(lessons);
                 File.WriteAllText(App.savedTimetablePath, json);
             });
             activityIndicator1.IsRunning = false;
             lstView.ItemsSource = GetAlarmData(lessons);
+            button.Text = "Обновить расписание";
         }
     }
 }

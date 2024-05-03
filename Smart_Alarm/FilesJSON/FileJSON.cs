@@ -14,21 +14,12 @@ namespace Smart_Alarm.FilesJSON
         public string TimeFAT_RK { get; set; }
     }
     public class LessonJSON
-    /// <param name = time" > Время начало пары, например: 10:40-12:15 </param>
+    /// <param name = time" > Время начало пары, например: 10:40 </param>
     /// <param name = date" > Дата начало пары, например: 08.04.2024  </param>
     {
         public string Discipline { get; set; }
         public string Auditorums { get; set; }
-        private string _time;
-        public string Time
-        {
-            get { return _time; }
-            set
-            {
-                int index = value.IndexOf('-');
-                _time = index != -1 ? value.Substring(0, index) : value;
-            }
-        }
+        public string Time {  get; set; }
 
         public string Date { get; set; }
 
