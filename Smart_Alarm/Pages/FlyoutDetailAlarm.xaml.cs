@@ -18,16 +18,18 @@ namespace Smart_Alarm.Pages
     {
         public ObservableCollection<Alarm.Alarm> time_of_alarm { get; set; }
         List<LessonJSON> lessons;
+        public System.Windows.Input.ICommand ButtonClickedCommand { private set; get; }
         public FlyoutDetailAlarm()
         {
             InitializeComponent();
-            if (File.Exists(App.savedTimetablePath))
+            if (File.Exists(App.SAVED_TIMETABLE_PATH))
             {
-                string json = File.ReadAllText(App.savedTimetablePath);
+                string json = File.ReadAllText(App.SAVED_TIMETABLE_PATH);
                 List<LessonJSON> lessons = JsonConvert.DeserializeObject<List<LessonJSON>>(json);
                 lstView.ItemsSource = GetAlarmData(lessons);
                 button.Text = "Обновить расписание";
             }
+            BindingContext = this;
         }
         public ObservableCollection<Alarm.Alarm> GetAlarmData(List<LessonJSON> lessons)
         {
@@ -41,14 +43,15 @@ namespace Smart_Alarm.Pages
 
         private async void OnMainPageButtonClicked(object sender, EventArgs e)
         {
+            string isSecondButton = (string)((Button)sender).CommandParameter;
             SettingsJSON settings;
             try
             {
-                if (!File.Exists(App.savedTimetablePath) || DateTime.Now > File.GetLastAccessTime(App.settingsPath).AddMinutes(1))
+                if (!File.Exists(App.SAVED_TIMETABLE_PATH) || DateTime.Now > File.GetLastAccessTime(App.SETTINGS_PATH).AddMinutes(1))
                 {
-                    string json = File.ReadAllText(App.settingsPath);
+                    string json = File.ReadAllText(App.SETTINGS_PATH);
                     settings = JsonConvert.DeserializeObject<SettingsJSON>(json);
-                    File.SetLastAccessTime(App.settingsPath, DateTime.Now);
+                    File.SetLastAccessTime(App.SETTINGS_PATH, DateTime.Now);
                 }
                 else
                 {
@@ -66,10 +69,18 @@ namespace Smart_Alarm.Pages
             activityIndicator1.IsRunning = true;
             await Task.Run(() =>
             {
-                Parser parser = new Parser(settings, flag:true);
+                Parser parser;
+                if (isSecondButton == "special_flag")
+                {
+                    parser = new Parser(settings, flag: true);
+                }
+                else
+                {
+                    parser = new Parser(settings);
+                }
                 lessons = parser.ParseTimetable();
                 string json = JsonConvert.SerializeObject(lessons);
-                File.WriteAllText(App.savedTimetablePath, json);
+                File.WriteAllText(App.SAVED_TIMETABLE_PATH, json);
             });
             activityIndicator1.IsRunning = false;
             lstView.ItemsSource = GetAlarmData(lessons);

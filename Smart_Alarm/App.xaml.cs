@@ -10,14 +10,14 @@ namespace Smart_Alarm
     public partial class App : Application
     {   
         //Хранить здесь все константные значения
-        public static string localPath = FileSystem.AppDataDirectory;
-        public static string settingsPath = Path.Combine(localPath, "localSettings.json");
-        public static string savedTimetablePath = Path.Combine(localPath, "timetable.json");
+        public static string LOCAL_PATH = FileSystem.AppDataDirectory;
+        public static string SETTINGS_PATH = Path.Combine(LOCAL_PATH, "localSettings.json");
+        public static string SAVED_TIMETABLE_PATH = Path.Combine(LOCAL_PATH, "timetable.json");
         public App()
         {
             InitializeComponent();
             // Проверка на наличие сохраненных данных
-            if (!File.Exists(settingsPath))
+            if (!File.Exists(SETTINGS_PATH))
             {
                 MainPage = new NavigationPage(new StartPage());
             }

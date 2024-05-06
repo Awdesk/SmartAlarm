@@ -56,7 +56,7 @@ namespace Smart_Alarm.Pages
                 string json = JsonConvert.SerializeObject(data);
 
                 // Запись JSON в файл
-                File.WriteAllText(App.settingsPath, json);
+                File.WriteAllText(App.SETTINGS_PATH, json);
                 if (Application.Current.MainPage is NavigationPage)
                 {
                     Application.Current.MainPage = new FlyoutPage1();
