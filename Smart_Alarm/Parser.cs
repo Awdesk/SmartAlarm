@@ -2,9 +2,7 @@
 using Smart_Alarm.FilesJSON;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using static Android.Renderscripts.Sampler;
 
 namespace Smart_Alarm
 {
@@ -17,14 +15,26 @@ namespace Smart_Alarm
     internal class Parser
     {
         private readonly string url;
-        private bool flag;
         private SettingsJSON settings;
-        /// <param name="flag">Если flag=true, то производится смещение времени соответсвенно настройкам </param>
-        public Parser(SettingsJSON settings, bool flag=false)
+        /// <param name="flag">Если параметр указан явно, то парсим следующую неделю </param>
+        public Parser(SettingsJSON settings, bool flag = false)
+        {
+            url = $"https://timetable.tusur.ru/faculties/{settings.Faculty}/groups/{settings.GroupID}?week_id={CheckWeekID()}";
+            this.settings = settings;
+        }
+        public Parser(SettingsJSON settings)
         {
             url = $"https://timetable.tusur.ru/faculties/{settings.Faculty}/groups/{settings.GroupID}";
-            this.flag = flag;
             this.settings = settings;
+        }
+        private int CheckWeekID()
+        {
+            // ID недели на 13.05.2024
+            int weekID = 718;
+            int weekElapsed = (int)(DateTime.Now - new DateTime(2024, 5, 13)).TotalDays / 7;
+            //костыль до тех пор, пока не пройдут две недели :)
+            //return (weekID + weekElapsed) == 718 ? 719 : weekID + weekElapsed;
+            return weekID + weekElapsed;
         }
         /// <summary>
         /// Парсит расписание за текущую неделю
@@ -41,25 +51,22 @@ namespace Smart_Alarm
                 string data_provedeniya = day.SelectSingleNode(".//div[2]/noindex/div/div/div/div[2]/p[2]").InnerText.Substring(30).Trim();
                 string time = day.SelectSingleNode(".//div[2]/noindex/div/div/div/div[2]/p[3]").InnerText.Substring(34).Trim();
                 time = time.Substring(0, time.IndexOf('-'));
-                if (flag)
-                {
-                    string auditoriyaLower = auditoriya.ToLower();
-                    int timeToSubtract = 0;
+                string auditoriyaLower = auditoriya.ToLower();
+                int timeToSubtract = 0;
 
-                    if (auditoriyaLower.Contains("рк") || auditoriyaLower.Contains("ф") || auditoriyaLower.Contains("фэт"))
-                    {
-                        timeToSubtract = int.Parse(settings.TimeFAT_RK);
-                    }
-                    else if (auditoriyaLower.Contains("улк"))
-                    {
-                        timeToSubtract = int.Parse(settings.TimeULK);
-                    }
-                    else if (auditoriyaLower.Contains("гк"))
-                    {
-                        timeToSubtract = int.Parse(settings.TimeGK);
-                    }
-                        time = (TimeSpan.Parse(time).Subtract(TimeSpan.FromMinutes(timeToSubtract))).ToString(@"hh\:mm");
+                if (auditoriyaLower.Contains("рк") || auditoriyaLower.Contains("ф") || auditoriyaLower.Contains("фэт"))
+                {
+                    timeToSubtract = int.Parse(settings.TimeFAT_RK);
                 }
+                else if (auditoriyaLower.Contains("улк"))
+                {
+                    timeToSubtract = int.Parse(settings.TimeULK);
+                }
+                else if (auditoriyaLower.Contains("гк"))
+                {
+                    timeToSubtract = int.Parse(settings.TimeGK);
+                }
+                time = (TimeSpan.Parse(time).Subtract(TimeSpan.FromMinutes(timeToSubtract))).ToString(@"hh\:mm");
                 lessons.Add(new LessonJSON { Discipline = disciplina, Auditorums = auditoriya, Date = data_provedeniya, Time = time });
             }
             return lessons;

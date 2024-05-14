@@ -28,6 +28,9 @@
                       Color="#FFA500"
                       VerticalOptions="End"
                       HorizontalOptions="Fill" />
-        <Button Text="Парсер" Clicked="OnMainPageButtonClicked" x:Name="button" BackgroundColor="#007ACC" TextColor="#FFFFFF"/>
+        <Button Text="Парсер" Clicked="OnMainPageButtonClicked" x:Name="button" Command="{Binding ButtonClickedCommand}" CommandParameter="false" 
+                BackgroundColor="#007ACC" TextColor="#FFFFFF"/>
+        <Button x:Name="button1" Clicked="OnMainPageButtonClicked" Text="Составить расписание на следующую неделю" 
+                Command="{Binding ButtonClickedCommand}" CommandParameter="special_flag" />
     </StackLayout>
 </ContentPage>
