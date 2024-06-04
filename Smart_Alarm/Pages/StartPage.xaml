@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Smart_Alarm.Pages.StartPage">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" Margin="10,5" Spacing="10">
+            <StackLayout.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="20" />
+                    <Setter Property="TextColor" Value="#1d49d8" />
+                </Style>
+                <Style TargetType="Entry">
+                    <Setter Property="PlaceholderColor" Value="#999999" />
+                    <Setter Property="FontSize" Value="16" />
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="BackgroundColor" Value="#4581f5" />
+                    <Setter Property="CornerRadius" Value="10" />
+                    <Setter Property="FontSize" Value="16" />
+                </Style>
+            </StackLayout.Resources>
+
+            <Label Text="SmartAlarm" HorizontalOptions="Center" FontSize="40" TextColor="#1d49d8" />
+            <Entry x:Name="groupID" Placeholder="Ваша группа" />
+            <Picker x:Name="pickerFaculties">
+                <Picker.Items>
+                    <x:String>Аспирантура</x:String>
+                    <x:String>Радиотехнический факультет</x:String>
+                    <x:String>Факультет вычислительных систем</x:String>
+                    <x:String>Факультет систем управления</x:String>
+                    <x:String>Радиоконструкторский факультет</x:String>
+                    <x:String>Факультет электронной техники</x:String>
+                    <x:String>Факультет инновационных технологий</x:String>
+                    <x:String>Экономический факультет</x:String>
+                    <x:String>Гуманитарный факультет</x:String>
+                    <x:String>Юридический факультет</x:String>
+                    <x:String>Факультет безопасности</x:String>
+                    <x:String>Заочный и вечерний факультет</x:String>
+                </Picker.Items>
+            </Picker>
+            <Label Text="Укажите время (в минутах) за которое вы добираетесь до различных корпусов:" />
+            <Entry x:Name="timeGK" Placeholder="Главный корпус" />
+            <Entry x:Name="timeULK" Placeholder="УЛК" />
+            <Entry x:Name="timeFAT_RK" Placeholder="ФЭТ/РК" />
+            <Button Text="Подтвердить" Margin="0,0,0,20" Clicked="ButtonCommit_Click" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

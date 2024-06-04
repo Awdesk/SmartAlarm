@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Smart_Alarm.Alarm"
+             x:Class="Smart_Alarm.Pages.FlyoutDetailAlarm"
+             Title="Detail">
+    <StackLayout BackgroundColor="#F5F5F5">
+        <ListView x:Name="lstView" RowHeight="80">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout BackgroundColor="#FFFFFF" Orientation="Horizontal">
+                            <StackLayout Margin="5,0,0,0" HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Name}" FontSize="24" TextColor="#333333" FontAttributes="Bold"
+                                   HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                                <Label Text="{Binding Description}" TextColor="#666666"
+                                   HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" WidthRequest="50">
+                                <Switch IsToggled="{Binding IsToggled}" OnColor="#77D065"
+                                    HorizontalOptions="End" VerticalOptions="Center"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ActivityIndicator x:Name="activityIndicator1"
+                      Color="#FFA500"
+                      VerticalOptions="End"
+                      HorizontalOptions="Fill" />
+        <Button Text="Парсер" Clicked="OnMainPageButtonClicked" x:Name="button" Command="{Binding ButtonClickedCommand}" CommandParameter="false" 
+                BackgroundColor="#007ACC" TextColor="#FFFFFF"/>
+        <Button x:Name="button1" Clicked="OnMainPageButtonClicked" Text="Составить расписание на следующую неделю" 
+                Command="{Binding ButtonClickedCommand}" CommandParameter="special_flag" />
+    </StackLayout>
+</ContentPage>
